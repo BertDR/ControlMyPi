@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>Server info</h1>
+
+    <form action="" method="post">
+        Public IP : {{ form.PublicIP }}<br>
+        Private IP : {{ form.PrivateIP }}
+{% endblock %}
