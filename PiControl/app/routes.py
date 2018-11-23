@@ -61,8 +61,19 @@ def logout():
 @app.route('/ServerInfo', methods=['GET'])
 def serverinfo():
     serverinfoform = ServerInfoForm()
-    hostname = socket.gethostname()
-    import ipgetter
-    serverinfoform.PublicIP = ipgetter.myip()
-    serverinfoform.PrivateIP = socket.gethostbyname(hostname);
+    from requests import get
+
+    serverinfoform.PublicIP = get('https://api.ipify.org').text
+
+    import socket
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        # doesn't even have to be reachable
+        s.connect(('8.255.255.255', 1))
+        IP = s.getsockname()[0]
+    except:
+        IP = '127.0.0.1'
+    finally:
+        s.close()
+    serverinfoform.PrivateIP = IP;
     return render_template('serverinfo.html',form=serverinfoform)
