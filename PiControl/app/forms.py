@@ -30,7 +30,7 @@ class EditProfileForm(FlaskForm):
                 raise ValidationError('Please use a different username.')
 
 class ServerInfoForm(FlaskForm):
-    PublicIP : StringField('PublicIP')
-    PrivateIP : StringField('PrivateIP')
-    Temperature : StringField('Temperature')
+    PublicIP = StringField('PublicIP')
+    PrivateIP = StringField('PrivateIP')
+    Temperature = StringField('Temperature')
 
