@@ -32,4 +32,5 @@ class EditProfileForm(FlaskForm):
 class ServerInfoForm(FlaskForm):
     PublicIP : StringField('PublicIP')
     PrivateIP : StringField('PrivateIP')
+    Temperature : StringField('Temperature')
 
