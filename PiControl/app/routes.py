@@ -76,4 +76,10 @@ def serverinfo():
     finally:
         s.close()
     serverinfoform.PrivateIP = IP;
+
+    from sense_hat import SenseHat
+    sense = SenseHat()
+    sense.clear()
+    serverinfoform.Temperature = sense.get_temperature()
+
     return render_template('serverinfo.html',form=serverinfoform)
