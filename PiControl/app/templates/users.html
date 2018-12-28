@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-
+{% if current_user.is_admin %}
+<a href="{{ url_for('adduser')}}">Click here to add a user</a>
+{% endif %}
+    <br><br>
     <table class="table table-hover">
     {% for user in users %}
         <tr>

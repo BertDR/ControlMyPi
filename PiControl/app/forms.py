@@ -9,11 +9,11 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
-
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
     email = StringField('Email', validators=[DataRequired(), Email()])
+    is_admin = BooleanField('Administrator role')
     password = PasswordField('Password')
     password2 = PasswordField(
         'Repeat Password', validators=[EqualTo('password')])
