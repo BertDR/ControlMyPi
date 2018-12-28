@@ -15,8 +15,14 @@
             </td>
             <td>
                 <a href="{{ url_for('user', id=user.id) }}">
-                    {{ user.username }}
+                    {{ user.username }} </a>
             </td>
+            {% if current_user.is_admin %}
+            <td>
+                <a href="{{ url_for('deleteuser', id=user.id)}}">Delete user {{user.username}}</a>
+            </td>
+            </td>
+            {% endif %}
         </tr>
     {% endfor %}
     </table>

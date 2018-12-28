@@ -33,7 +33,8 @@ def user(id):
         user.username = form.username.data
         user.about_me = form.about_me.data
         user.email = form.email.data
-        user.is_admin = request.form.get('is_admin') == 'y'
+        if current_user.is_admin:
+            user.is_admin = request.form.get('is_admin') == 'y'
         if form.password.data != '':
             user.set_password(form.password.data)
 
@@ -84,6 +85,17 @@ def adduser():
         return redirect(url_for('users', id=user.id))
     return render_template('editprofile.html', tile='Edit profile', form=form)
 
+@app.route('/user/delete/<id>', methods=['GET'])
+@login_required
+def deleteuser(id):
+    if (not current_user.is_admin ) :
+        flash('Only admins are allowed to delete.')
+        return redirect(url_for('users'))
+    user = User.query.filter_by(id=id).first_or_404()
+    if user is not None:
+        db.session.delete(user)
+        db.session.commit()
+        return redirect(url_for('users'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -101,12 +113,14 @@ def login():
 
 
 @app.route('/logout', methods=['GET', 'POST'])
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 
 @app.route('/ServerInfo', methods=['GET'])
+@login_required
 def serverinfo():
     serverinfoform = ServerInfoForm()
     from requests import get
@@ -137,6 +151,7 @@ def serverinfo():
 
 
 @app.route('/pictures', methods=['GET'])
+@login_required
 def pictures():
     allpictures = []
     for filename in os.listdir('app/static/campics/'):

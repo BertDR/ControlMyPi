@@ -27,6 +27,7 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
+        {% if current_user.is_admin %}
         <p>
             {{ form.is_admin.label }}<br>
             {{ form.is_admin }}<br>
@@ -34,6 +35,7 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
+        {% endif %}
         <p>
             {{ form.password.label }}<br>
             {{ form.password(size=32) }}<br>
