@@ -150,12 +150,24 @@ def serverinfo():
 @login_required
 def pictures():
     allpictures = []
-    for filename in os.listdir('static/campics/'):
+#    for filename in os.listdir('static/campics/'):
+    for filename in os.listdir('campics/'):
         if filename.endswith("thn.jpg"):
-            allpictures.append('static/campics/' + filename)
-#             allpictures.append( url_for('static')  + filename)
-#            allpictures.append( main.static_url_path  )
+            allpictures.append('campics/' + filename)
+#            allpictures.append('static/campics/' + filename)
         else:
             continue
     allpictures.sort(reverse=True)
     return render_template('pictures.html', title='Pictures', allpictures=allpictures)
+
+from flask import current_app as app
+
+from flask import send_from_directory
+
+@main.route('/campics/<path:filename>')
+@login_required
+def protected(filename):
+    return send_from_directory(
+        os.path.join(app.root_path, 'campics'),
+        filename
+    )

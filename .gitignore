@@ -1,0 +1,9 @@
+.idea/
+__pycache__/
+venv/
+PiControl/Alles.zip
+PiControl/starten.txt
+PiControl/WebApp/PiControl.db
+PiControl/WebApp/PiControl.db
+*.db
+*.jpg
