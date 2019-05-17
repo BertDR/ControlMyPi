@@ -2,24 +2,24 @@
 
 {% block app_content %}
 {% if current_user.is_admin %}
-<a href="{{ url_for('adduser')}}">Click here to add a user</a>
+<a href="{{ url_for('main.adduser')}}">Click here to add a user</a>
 {% endif %}
     <br><br>
     <table class="table table-hover">
     {% for user in users %}
         <tr>
             <td width="70px">
-                <a href="{{ url_for('user', id=user.id) }}">
+                <a href="{{ url_for('main.user', id=user.id) }}">
                     <img src="{{ user.avatar(70) }}" />
                 </a>
             </td>
             <td>
-                <a href="{{ url_for('user', id=user.id) }}">
+                <a href="{{ url_for('main.user', id=user.id) }}">
                     {{ user.username }} </a>
             </td>
             {% if current_user.is_admin %}
             <td>
-                <a href="{{ url_for('deleteuser', id=user.id)}}">Delete user {{user.username}}</a>
+                <a href="{{ url_for('main.deleteuser', id=user.id)}}">Delete user {{user.username}}</a>
             </td>
             </td>
             {% endif %}

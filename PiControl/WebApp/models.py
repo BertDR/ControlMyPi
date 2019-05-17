@@ -1,12 +1,12 @@
-from app import db
+from WebApp import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from app import login
+from WebApp import login
 from hashlib import md5
-from time import time
 import jwt
-from app import app
+# from WebApp import WebApp
 from datetime import datetime
+from . import login_manager
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -43,3 +43,7 @@ class User(UserMixin, db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))

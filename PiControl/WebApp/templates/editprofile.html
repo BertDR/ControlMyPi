@@ -2,7 +2,8 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-    <h1>Edit user</h1>
+    <h1>{% if initial_admin %}Create the initial admin{% else %}Edit user{% endif %}!</h1>
+
 
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}

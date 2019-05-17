@@ -1,10 +1,9 @@
 ﻿from app import app
 from flask_login import current_user, login_user, logout_user, login_required
 from app import db
-from app.forms import LoginForm, EditProfileForm, ServerInfoForm
-from app.models import User
+from app import LoginForm, EditProfileForm, ServerInfoForm
+from app import User
 from flask import render_template, flash, redirect, url_for, request
-import socket
 import os
 
 
