@@ -35,9 +35,11 @@ def create_app(config_name):
     from WebApp.app.main import main as main_blueprint
     app.register_blueprint(main_blueprint )
 
-    from WebApp.app.api_1_0 import api as apiv1
-    app.register_blueprint(apiv1, url_prefix='/api/v1.0')
-
     from WebApp.app.auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
+    from WebApp.app.api_1_0 import api as api
+    app.register_blueprint(api, url_prefix='/api/v1.0')
+
+
     return app
