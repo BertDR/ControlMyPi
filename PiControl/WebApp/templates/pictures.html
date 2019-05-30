@@ -3,10 +3,11 @@
 {% block app_content %}
     <h1>Pictures</h1>
     <table class="table table-striped">
-    {%- for filenames in allpictures | batch(3) %}
+    {%- for filenames in allthumbs | batch(3) %}
       <tr>
       {%- for filename in filenames %}
        {% set destfilename = filename | replace('_thn.','.') %}
+       {% set destfilename = destfilename | replace('campics/','campics/singlepicture/') %}
         <td><a HREF="{{destfilename}}"> <img src="{{ filename }}"/> </a></td>
       {%- endfor %}
       </tr>
