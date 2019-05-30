@@ -7,6 +7,8 @@ from WebApp import db
 from WebApp.models import User
 from WebApp.app.auth.forms import LoginForm, EditProfileForm
 from .forms import ServerInfoForm
+from flask import current_app as app
+from flask import send_from_directory
 
 @main.route('/', methods=['GET', 'POST'])
 @main.route('/index', methods=['GET', 'POST'])
@@ -145,7 +147,6 @@ def serverinfo():
 
     return render_template('serverinfo.html', form=serverinfoform)
 
-
 @main.route('/pictures', methods=['GET'])
 @login_required
 def pictures():
@@ -157,10 +158,6 @@ def pictures():
             continue
     allthumbs.sort(reverse=True)
     return render_template('pictures.html', title='Pictures', allthumbs=allthumbs)
-
-from flask import current_app as app
-
-from flask import send_from_directory
 
 @main.route('/campics/singlepicture/<path:filename>')
 @login_required

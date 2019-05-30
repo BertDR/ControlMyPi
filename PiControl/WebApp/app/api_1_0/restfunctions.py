@@ -1,8 +1,9 @@
-from flask import jsonify
+from flask import jsonify, url_for
 from .decorators import permission_required
 from . import api
 from flask_login import current_user, login_user, logout_user, login_required
 from .authentication import unauthorized
+import os
 
 # http://127.0.0.1:5000/api/v1.0/posts
 
@@ -40,3 +41,42 @@ def serverinfo():
         'PrivateIP': IP,
         'Temperature': Temperature
     })
+
+
+class Picture(object):
+    PictureName = ""
+
+    def __init__(self, Name):
+        self.PictureName = Name
+
+    def to_json(self):
+        json_picture = {
+            'url': self.PictureName
+        }
+        return json_picture
+
+@api.route('/pictures', methods=['GET'])
+def pictures():
+    allthumbs = []
+    allfullpics = []
+    allpictureobjects = []
+    allfullpictureobjects = []
+    for filename in os.listdir('campics/'):
+        if filename.endswith("thn.jpg"):
+            allthumbs.append( url_for ('main.singlepictureraw', filename=filename, _external=True))
+        else:
+            if filename.endswith(".jpg"):
+                allfullpics.append( url_for ('main.singlepictureraw', filename=filename, _external=True))
+            else:
+                continue
+    allthumbs.sort(reverse=True)
+    allfullpics.sort(reverse=True)
+    for picture in allthumbs:
+        allpictureobjects.append(Picture(picture))
+    for picture in allfullpics:
+        allfullpictureobjects.append(Picture(picture))
+    return jsonify({
+        'thumbs': [picture.to_json() for picture in allpictureobjects],
+        'destinations': [picture.to_json() for picture in allfullpictureobjects]
+    })
+
