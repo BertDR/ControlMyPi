@@ -1,15 +1,16 @@
-from flask import jsonify, url_for
+from flask import jsonify, url_for, send_file
 from .decorators import permission_required
 from . import api
 from flask_login import current_user, login_user, logout_user, login_required
 from .authentication import unauthorized
 import os
+import io
 
 # http://127.0.0.1:5000/api/v1.0/posts
 
 @api.route('/posts/')
 def get_posts():
-    response = jsonify({'name': 'Hello, world!'})
+    response = jsonify({'name': 'Hello, Bert!'})
     response.status_code = 200
     return response
 
@@ -36,11 +37,13 @@ def serverinfo():
         Temperature = sense.get_temperature()
     except:
         Temperature = None
-    return jsonify({
+    response = jsonify({
         'PublicIP': PublicIP,
         'PrivateIP': IP,
         'Temperature': Temperature
     })
+    response.status_code = 200
+    return response
 
 
 class Picture(object):
@@ -80,3 +83,7 @@ def pictures():
         'destinations': [picture.to_json() for picture in allfullpictureobjects]
     })
 
+from flask import send_from_directory
+@api.route('/picture/<name>', methods=['GET'])
+def picture(name):
+    return send_from_directory("campics", name)
