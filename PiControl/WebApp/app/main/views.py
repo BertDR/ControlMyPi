@@ -90,7 +90,7 @@ def appinit():
     usercount = User.query.count();
     if usercount > 0 :
         flash('There is an admin user...')
-        return redirect(url_for('index'));
+        return redirect(url_for('main.index'));
     form= EditProfileForm('Admin')
     if form.validate_on_submit():
         user = User(
@@ -144,6 +144,8 @@ def serverinfo():
         serverinfoform.Temperature = sense.get_temperature()
     except:
         serverinfoform.Temperature = None
+
+    serverinfoform.AppRootPath = app.root_path
 
     return render_template('serverinfo.html', form=serverinfoform)
 
