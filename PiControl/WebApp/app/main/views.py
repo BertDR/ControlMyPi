@@ -153,7 +153,7 @@ def serverinfo():
 @login_required
 def pictures():
     allthumbs = []
-    for filename in os.listdir('campics/'):
+    for filename in os.listdir(os.path.join(app.root_path, 'campics/')):
         if filename.endswith("thn.jpg"):
             allthumbs.append('campics/' + filename)
         else:
