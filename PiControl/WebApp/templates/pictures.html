@@ -2,6 +2,10 @@
 
 {% block app_content %}
     <h1>Pictures</h1>
+    <form action="/campics/takepicture" method="post" novalidate>
+    <p>{{ form.submit() }}</p>
+    </form>
+    <p></p>
     <table class="table table-striped">
     {%- for filenames in allthumbs | batch(3) %}
       <tr>

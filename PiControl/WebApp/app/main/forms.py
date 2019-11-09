@@ -10,3 +10,5 @@ class ServerInfoForm(FlaskForm):
     Temperature = StringField('Temperature')
     AppRootPath = StringField('AppRootPath')
 
+class PicturesForm(FlaskForm):
+    submit = SubmitField('Take Picture')
