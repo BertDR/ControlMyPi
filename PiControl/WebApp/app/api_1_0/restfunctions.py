@@ -58,13 +58,14 @@ class Picture(object):
         }
         return json_picture
 
+
 @api.route('/pictures', methods=['GET'])
 def pictures():
     allthumbs = []
     allfullpics = []
     allpictureobjects = []
     allfullpictureobjects = []
-    for filename in os.listdir('campics/'):
+    for filename in os.listdir(os.path.join(app.root_path, 'campics/')):
         if filename.endswith("thn.jpg"):
             allthumbs.append( url_for ('main.singlepictureraw', filename=filename, _external=True))
         else:
