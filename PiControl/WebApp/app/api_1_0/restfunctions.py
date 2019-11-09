@@ -4,7 +4,7 @@ from . import api
 from flask_login import current_user, login_user, logout_user, login_required
 from .authentication import unauthorized
 import os
-import io
+from flask import current_app as app
 
 # http://127.0.0.1:5000/api/v1.0/posts
 
