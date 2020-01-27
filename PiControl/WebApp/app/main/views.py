@@ -181,3 +181,13 @@ def singlepictureraw(filename):
         filename
     )
 
+@main.route('/campics/deletesinglepicture/<path>', methods=['POST'])
+@login_required
+def deletesinglepicture(path):
+    filename = os.path.join(app.root_path, 'campics')
+    filename = os.path.join(filename, path)
+    filenamethumb, file_extension = os.path.splitext(filename)
+    filenamethumb = filenamethumb + "_thn.jpg"
+    os.remove(filename)
+    os.remove(filenamethumb)
+    return redirect(url_for('main.pictures'))
