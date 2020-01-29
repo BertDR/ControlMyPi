@@ -25,3 +25,11 @@ def takePicture():
         thePicture.thumbnail((80, 60))
         thepath = os.path.join(theorigpath, filenamethumb)
         thePicture.save(thepath)
+
+def deleteSinglePictureShared(path):
+    filename = os.path.join(app.root_path, 'campics')
+    filename = os.path.join(filename, path)
+    filenamethumb, file_extension = os.path.splitext(filename)
+    filenamethumb = filenamethumb + "_thn.jpg"
+    os.remove(filename)
+    os.remove(filenamethumb)

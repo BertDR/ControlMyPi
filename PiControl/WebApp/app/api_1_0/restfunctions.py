@@ -5,7 +5,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from .authentication import unauthorized
 import os
 from flask import current_app as app
-from ...Shared import takePicture
+from ...Shared import takePicture, deleteSinglePictureShared
 
 # http://127.0.0.1:5000/api/v1.0/posts
 
@@ -93,4 +93,9 @@ def picture(name):
 @api.route('/takepicture')
 def takepicture():
     takePicture()
+    return jsonify(({'Result:' : 200}))
+
+@api.route('/picture/delete/<name>', methods=['GET'])
+def deletepicture(name):
+    deleteSinglePictureShared(name)
     return jsonify(({'Result:' : 200}))

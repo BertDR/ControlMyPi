@@ -7,7 +7,7 @@ from WebApp.app.auth.forms import LoginForm, EditProfileForm
 from .forms import ServerInfoForm, PicturesForm
 from flask import current_app as app
 from flask import send_from_directory
-from ...Shared import takePicture
+from ...Shared import takePicture, deleteSinglePictureShared
 import os
 
 @main.route('/', methods=['GET', 'POST'])
@@ -184,10 +184,5 @@ def singlepictureraw(filename):
 @main.route('/campics/deletesinglepicture/<path>', methods=['POST'])
 @login_required
 def deletesinglepicture(path):
-    filename = os.path.join(app.root_path, 'campics')
-    filename = os.path.join(filename, path)
-    filenamethumb, file_extension = os.path.splitext(filename)
-    filenamethumb = filenamethumb + "_thn.jpg"
-    os.remove(filename)
-    os.remove(filenamethumb)
+    deleteSinglePictureShared(path)
     return redirect(url_for('main.pictures'))
