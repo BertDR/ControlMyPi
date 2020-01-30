@@ -171,7 +171,7 @@ def takeCamPicture():
 @main.route('/campics/singlepicture/<path:filename>')
 @login_required
 def singlepicturefromtemplate(filename):
-    return render_template('singlepicture.html', title='Picture', destination=filename)
+    return render_template('singlepicture.html', title='Picture ' + filename, destination=filename)
 
 @main.route('/campics/<path:filename>')
 @login_required
