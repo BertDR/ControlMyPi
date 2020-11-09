@@ -10,6 +10,12 @@ from . import login_manager
 from flask import current_app
 from . import app
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
+class serverConfig(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cameraOrientation = db.Column(db.Integer)
+    temperatureDelta = db.Column(db.Integer)
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)

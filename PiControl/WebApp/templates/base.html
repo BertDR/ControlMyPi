@@ -22,6 +22,7 @@
                     <li><a href="{{ url_for('main.index') }}">{{ ('Home') }}</a></li>
                     {% if current_user.is_admin %}
                     <li><a href="{{ url_for('main.users') }}">{{ ('Users') }}</a></li>
+                    <li><a href="{{ url_for('main.setup') }}">{{ ('Setup') }}</a></li>
                     {% endif %}
                     {% if current_user.is_authenticated %}
                     <li><a href="{{ url_for('main.serverinfo') }}">{{ ('Server info') }}</a></li>

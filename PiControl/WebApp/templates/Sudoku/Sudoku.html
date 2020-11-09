@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+    <h1>{{ title }}</h1>
+    <div class="game-container">
+        <div class="grid-container">
+            <form action="{{ url_for('solution') }}" method="post" name="sudoku-input">
+              {% for i in range(9) %}
+                <div class="grid-row">
+                  {% for j in range(9) %}
+                    <div class="grid-cell">
+                    <input type="text" maxlength="1" name='cell-input[{{ j+i*9 }}]' class="def-txt-input">
+                    </div>
+                  {% endfor %}
+                </div>
+               {% endfor %}
+                <div class="button-container">
+                    <input type="submit" value="Solve" class="btn btn-primary btn-block">
+                    <button id="clear-btn" type="button" class="btn btn-secondary btn-block">Clear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+

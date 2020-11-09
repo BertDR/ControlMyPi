@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+    <h1>{{ title }}</h1>
+    <div class="game-container">
+        <div class="grid-container">
+            {% for i in range(9) %}
+                <div class="grid-row">
+                    {% for j in range(9) %}
+                        <div class="grid-cell">
+                            <input class="fadein-container" type="number" maxlength="1" name='cell-input' value="{{ solved_puzzle[i][j] }}" readonly>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <div class='button-container fadein-container'>
+                <a class="btn btn-primary btn-block" href="{{ url_for('index') }}">Back</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

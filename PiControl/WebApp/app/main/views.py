@@ -3,8 +3,9 @@ from flask_login import current_user, login_user, logout_user, login_required
 from . import main
 from WebApp import db
 from WebApp.models import User
+from WebApp.models import serverConfig
 from WebApp.app.auth.forms import LoginForm, EditProfileForm
-from .forms import ServerInfoForm, PicturesForm
+from .forms import ServerInfoForm, PicturesForm, ServerConfigForm
 from flask import current_app as app
 from flask import send_from_directory
 from ...Shared import takePicture, deleteSinglePictureShared
@@ -186,3 +187,33 @@ def singlepictureraw(filename):
 def deletesinglepicture(path):
     deleteSinglePictureShared(path)
     return redirect(url_for('main.pictures'))
+
+@main.route('/setup', methods=['GET', 'POST'])
+@login_required
+def setup():
+    if (not current_user.is_admin ) :
+        flash('You need to be an admin to setup your Pi')
+        return redirect(url_for('main.index'))
+    ConfigCount = serverConfig.query.count()
+    if (ConfigCount < 1):
+        MyServerConfig = serverConfig()
+        MyServerConfig.id = 1
+        MyServerConfig.temperatureDelta = 0
+        MyServerConfig.cameraOrientation = 180
+        db.session.add (MyServerConfig)
+        db.session.commit()
+    MyServerConfig = serverConfig.query.filter_by(id=1).first()
+    form = ServerConfigForm()
+    if form.validate_on_submit():
+        MyServerConfig.cameraOrientation = form.cameraOrientation.data
+        MyServerConfig.temperatureDelta = form.temperatureDelta.data
+        if MyServerConfig.id == 0:
+            MyServerConfig.id = 1
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('main.setup'))
+    elif request.method == 'GET':
+        form.cameraOrientation.data = MyServerConfig.cameraOrientation
+        form.temperatureDelta.data = MyServerConfig.temperatureDelta
+    return render_template('serverconfig.html', tile='Edit profile', form=form)
+

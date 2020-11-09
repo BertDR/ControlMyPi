@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.cameraOrientation.label }}<br>
+            {{ form.cameraOrientation(size=3) }}<br>
+            {% for error in form.cameraOrientation.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.temperatureDelta.label }}<br>
+            {{ form.temperatureDelta }}<br>
+            {% for error in form.temperatureDelta.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit(class='btn btn-primary') }}</p>
+    </form>
+{% endblock %}
