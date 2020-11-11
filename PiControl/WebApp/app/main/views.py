@@ -138,11 +138,18 @@ def serverinfo():
         s.close()
     serverinfoform.PrivateIP = IP;
 
+    ConfigCount = serverConfig.query.count()
+    if (ConfigCount < 1):
+        MyServerConfig = serverConfig()
+        MyServerConfig.temperatureDelta = 0
+    else :
+        MyServerConfig = serverConfig.query.filter_by(id=1).first()
+
     try:
         from sense_hat import SenseHat
         sense = SenseHat()
         sense.clear()
-        serverinfoform.Temperature = sense.get_temperature()
+        serverinfoform.Temperature = sense.get_temperature() + MyServerConfig.temperatureDelta
     except:
         serverinfoform.Temperature = None
 

@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 from PIL import Image
 from flask import current_app as app
+from WebApp.models import serverConfig
 
 if (platform.platform()[0:7] != 'Windows') :
     import picamera as picamera
@@ -11,9 +12,16 @@ else:
     from .picamearaemul import picamera as picamera
 
 def takePicture():
+    ConfigCount = serverConfig.query.count()
+    if (ConfigCount < 1):
+        MyServerConfig = serverConfig()
+        MyServerConfig.cameraOrientation = 180
+    else :
+        MyServerConfig = serverConfig.query.filter_by(id=1).first()
     with picamera.PiCamera() as camera:
         camera.resolution = (2592, 1944)
         camera.start_preview()
+        camera.rotation = MyServerConfig.cameraOrientation
         time.sleep(2)
         theorigpath = os.path.join(app.root_path, 'campics')
         filenamefromtime = time.strftime("%Y%m%d-%H%M%S")
