@@ -24,7 +24,7 @@ Flask-WTF==0.14.3
 httpie==2.3.0
 idna==2.10
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 Mako==1.1.3
 MarkupSafe==1.1.1
 numpy==1.19.4
