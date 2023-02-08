@@ -8,7 +8,7 @@ chardet==4.0.0
 charset-normalizer==2.0.9
 click==8.0.3
 colorama==0.4.4
-cryptography==36.0.1
+cryptography==39.0.1
 defusedxml==0.7.1
 dnspython==2.1.0
 dominate==2.6.0
